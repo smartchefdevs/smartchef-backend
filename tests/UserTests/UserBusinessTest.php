@@ -26,4 +26,16 @@ class UserBusinessTest extends TestCase
 
         $this->assertNotNull($business->create($user)->id);
     }
+
+    /**
+     * Test User get by mail
+     *
+     * @return void
+     */
+    public function testGetByMail(){
+        $business = new UserBusiness;
+
+        $this->assertNotNull($business->getByMail("prueda@globant.com"));
+        $this->assertNull($business->getByMail("prueda@globant.co"));
+    }
 }

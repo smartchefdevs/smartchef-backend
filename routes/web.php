@@ -14,3 +14,18 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+/**
+ * Login Administration route
+ */
+$router->post('/auth/login/admin', 'AuthController@loginAdmin');
+
+/**
+ * Login Chef route
+ */
+$router->post('/auth/login/chef', 'AuthController@loginChef');
+
+/**
+ * Login Costumer route
+ */
+$router->post('/auth/login/costumer', 'AuthController@loginCostumer');
