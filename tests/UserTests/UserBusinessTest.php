@@ -17,14 +17,19 @@ class UserBusinessTest extends TestCase
         $user = new User;
         $user->id_profile = 1;
         $user->id_state = 1;
-        $user->image_url = "def.png";
-        $user->full_name = "Paula Andrea Rueda Gaitán";
-        $user->mail = "prueda@globant.com";
-        $user->pass = "123456";
-        $user->birthday = "2000-02-13";
-        $user->address = "Calle 170 n 23-67 Int 2 apt 503";
-
-        $this->assertNotNull($business->create($user)->id);
+        $user->image_url = null;
+        $user->full_name = "Juan Pablo Camargo";
+        $user->mail = "juancholasso@globant.com";
+        $user->pass = null;
+        $user->birthday = null;
+        $user->address = "Calle 146 n 23-67 Int 2 apt 503";
+        
+        try{
+            $this->assertNotNull($business->create($user)->id);
+        }catch(\Exception $e){
+            error_log('SE CAPTURA ERROR='.$e->getMessage());
+            $this->assertNotNull($e->getMessage());
+        }        
     }
 
     /**
