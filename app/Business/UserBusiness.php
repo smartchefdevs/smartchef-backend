@@ -22,6 +22,10 @@ class UserBusiness{
     }
 
     public function validate($user){
+        if(ValidatorUtil::isBlank($user->id_profile)){
+            throw new \Exception('No se especifica perfil');
+        }
+
         if(ValidatorUtil::isBlank($user->full_name)){
             throw new \Exception('Nombre vacío');
         }
@@ -32,6 +36,14 @@ class UserBusiness{
 
         if(ValidatorUtil::isBlank($user->pass)){
             throw new \Exception('Contraseña vacía');
+        }
+
+        if(ValidatorUtil::isBlank($user->image_url)){
+            $user->image_url = 'def.png';
+        }
+
+        if(ValidatorUtil::isBlank($user->id_state)){
+            $user->id_state = 1;
         }
 
         if(ValidatorUtil::isBlank($user->image_url)){

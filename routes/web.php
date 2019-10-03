@@ -29,3 +29,8 @@ $router->post('/auth/login/chef', 'AuthController@loginChef');
  * Login Costumer route
  */
 $router->post('/auth/login/costumer', 'AuthController@loginCostumer');
+
+/**
+ * Register users
+ */
+$router->post('/user/create','UserController@create');

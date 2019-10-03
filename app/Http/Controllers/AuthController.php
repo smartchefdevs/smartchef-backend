@@ -14,6 +14,9 @@ class AuthController extends Controller{
      */
     protected $jwt;
 
+    /**
+     * @var App\Business\UserBusiness
+     */
     private $userBusiness;
 
     public function __construct(JWTAuth $jwt){
