@@ -34,3 +34,13 @@ $router->post('/auth/login/costumer', 'AuthController@loginCostumer');
  * Register users
  */
 $router->post('/user/create','UserController@create');
+
+
+/**
+ * Module FoodDish
+ */
+$router->post('/fooddish/create','FoodDishController@create');
+$router->get('/fooddish/delete/{id}','FoodDishController@delete');
+$router->post('/fooddish/update','FoodDishController@update');
+$router->get('/fooddish/list','FoodDishController@list');
+$router->get('/fooddish/index/{id}','FoodDishController@getFoodDishById');

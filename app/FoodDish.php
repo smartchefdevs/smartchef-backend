@@ -43,7 +43,7 @@ class FoodDish extends Model{
      */
     public function category()
     {
-        return $this->HasOne('App\CategoryFood','id', 'id_category');
+        return $this->hasOne('App\CategoryFood','id', 'id_category');
     }
 
     /**
@@ -53,7 +53,7 @@ class FoodDish extends Model{
      */
     public function state()
     {
-        return $this->HasOne('App\FoodDishState','id', 'id_state');
+        return $this->hasOne('App\FoodDishState','id', 'id_state');
     }
 
     /**
