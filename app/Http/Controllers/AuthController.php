@@ -28,7 +28,9 @@ class AuthController extends Controller{
         $usuario = $this->userBusiness->getByMail($request->input('mail'));
         if($usuario == null){
             return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
-        } else if($usuario->state->id != 1){
+        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
+            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
+        }else if($usuario->state->id != 1){
             return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
         } else if($usuario->profile->id != 1){
             return response()->json(['id'=>-1,'msg'=>'No eres administrador'],401);    
@@ -41,6 +43,8 @@ class AuthController extends Controller{
         $usuario = $this->userBusiness->getByMail($request->input('mail'));
         if($usuario == null){
             return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
+        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
+            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
         } else if($usuario->state->id != 1){
             return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
         } else if($usuario->profile->id != 2){
@@ -54,7 +58,9 @@ class AuthController extends Controller{
         $usuario = $this->userBusiness->getByMail($request->input('mail'));
         if($usuario == null){
             return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
-        } else if($usuario->state->id != 1){
+        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
+            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
+        }else if($usuario->state->id != 1){
             return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
         } else if($usuario->profile->id != 3){
             return response()->json(['id'=>-1,'msg'=>'No eres un Cliente'],401);    

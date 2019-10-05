@@ -35,6 +35,20 @@ $router->post('/auth/login/costumer', 'AuthController@loginCostumer');
  */
 $router->post('/user/create','UserController@create');
 
+/**
+ * Get All users
+ */
+$router->get('/user/list','UserController@getAll');
+
+/**
+ * Get user by id
+ */
+$router->get('/user/index/{id}','UserController@getById');
+
+/**
+ * Update state user by id
+ */
+$router->post('/user/change/state','UserController@updateState');
 
 /**
  * Module FoodDish
