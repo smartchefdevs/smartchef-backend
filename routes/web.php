@@ -44,3 +44,12 @@ $router->get('/fooddish/delete/{id}','FoodDishController@delete');
 $router->post('/fooddish/update','FoodDishController@update');
 $router->get('/fooddish/list','FoodDishController@list');
 $router->get('/fooddish/index/{id}','FoodDishController@getFoodDishById');
+
+/**
+ * Module event
+ */
+$router->post('/event/create','EventController@create');
+$router->get('/event/delete/{id}','EventController@delete');
+$router->post('/event/update','EventController@update');
+$router->get('/event/list','EventController@list');
+$router->get('/event/index/{id}','EventController@getEventById');
