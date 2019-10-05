@@ -77,3 +77,12 @@ $router->post('/categoryfood/update','CategoryFoodController@update');
 $router->get('/categoryfood/list','CategoryFoodController@list');
 $router->get('/categoryfood/index/{id}','CategoryFoodController@getFoodDishStateById');
 
+
+/**
+ * Module event
+ */
+$router->post('/event/create','EventController@create');
+$router->get('/event/delete/{id}','EventController@delete');
+$router->post('/event/update','EventController@update');
+$router->get('/event/list','EventController@list');
+$router->get('/event/index/{id}','EventController@getEventById');
