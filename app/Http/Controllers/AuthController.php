@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
 use App\Business\UserBusiness;
+use App\Business\AuthBusiness;
 
 class AuthController extends Controller{
 
@@ -19,54 +20,45 @@ class AuthController extends Controller{
      */
     private $userBusiness;
 
+    /**
+     * @var App\Business\AuthBusiness
+     */
+    private $authBusiness;
+
     public function __construct(JWTAuth $jwt){
         $this->jwt = $jwt;
         $this->userBusiness = new UserBusiness;
+        $this->authBusiness = new AuthBusiness;
     }
 
     public function loginAdmin(Request $request){
-        $usuario = $this->userBusiness->getByMail($request->input('mail'));
-        if($usuario == null){
-            return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
-        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
-            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
-        }else if($usuario->state->id != 1){
-            return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
-        } else if($usuario->profile->id != 1){
-            return response()->json(['id'=>-1,'msg'=>'No eres administrador'],401);    
+        try{
+            $user = $this->userBusiness->getByMail($request->input('mail'));
+            $this->authBusiness->validateAdmin($user, $request);
+            return $this->login($request);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],401);
         }
-
-        return $this->login($request);
     }
 
     public function loginChef(Request $request){
-        $usuario = $this->userBusiness->getByMail($request->input('mail'));
-        if($usuario == null){
-            return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
-        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
-            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
-        } else if($usuario->state->id != 1){
-            return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
-        } else if($usuario->profile->id != 2){
-            return response()->json(['id'=>-1,'msg'=>'No eres un Chef'],401);    
+        try{
+            $user = $this->userBusiness->getByMail($request->input('mail'));
+            $this->authBusiness->validateChef($user, $request);
+            return $this->login($request);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],401);
         }
-
-        return $this->login($request);
     }
 
     public function loginCostumer(Request $request){
-        $usuario = $this->userBusiness->getByMail($request->input('mail'));
-        if($usuario == null){
-            return response()->json(['id'=>-1,'msg'=>'El usuario no existe'],401);
-        } else if($usuario->pass != $this->userBusiness->encryptPass($request->input('pass'))){
-            return response()->json(['id'=>-1,'msg'=>'Contraseña incorrecta'],401);    
-        }else if($usuario->state->id != 1){
-            return response()->json(['id'=>-1,'msg'=>'Usuario está bloqueado'],401);    
-        } else if($usuario->profile->id != 3){
-            return response()->json(['id'=>-1,'msg'=>'No eres un Cliente'],401);    
+        try{
+            $user = $this->userBusiness->getByMail($request->input('mail'));
+            $this->authBusiness->validateCostumer($user, $request);
+            return $this->login($request);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],401);
         }
-
-        return $this->login($request);
     }
 
     public function login(Request $request){
