@@ -7,18 +7,27 @@ use App\Utils\ValidatorUtil;
 
 class UserBusiness{
 
+    public function getAll(){
+        return User::with('state')->with('profile')->get();
+    }
+
     public function getById($id){
-            return User::find($id);
+        return User::with('state')->with('profile')->find($id);
     }
 
     public function getByMail($mail){
-            return User::where('mail', $mail)->first();
+        return User::where('mail', $mail)->first();
     }
 
     public function create($user){
         $this->validate($user);
         $user->pass = $this->encryptPass($user->pass);
         return $user->create($user->toArray());
+    }
+
+    public function updateState($user,$id_state){
+        $user->id_state=$id_state;
+        $user->save();
     }
 
     public function validate($user){

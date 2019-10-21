@@ -35,6 +35,20 @@ $router->post('/auth/login/costumer', 'AuthController@loginCostumer');
  */
 $router->post('/user/create','UserController@create');
 
+/**
+ * Get All users
+ */
+$router->get('/user/list','UserController@getAll');
+
+/**
+ * Get user by id
+ */
+$router->get('/user/index/{id}','UserController@getById');
+
+/**
+ * Update state user by id
+ */
+$router->post('/user/change/state','UserController@updateState');
 
 /**
  * Module FoodDish
@@ -44,6 +58,25 @@ $router->get('/fooddish/delete/{id}','FoodDishController@delete');
 $router->post('/fooddish/update','FoodDishController@update');
 $router->get('/fooddish/list','FoodDishController@list');
 $router->get('/fooddish/index/{id}','FoodDishController@getFoodDishById');
+
+/**
+ * Module FoodDishState
+ */
+$router->post('/fooddishstate/create','FoodDishStateController@create');
+$router->get('/fooddishstate/delete/{id}','FoodDishStateController@delete');
+$router->post('/fooddishstate/update','FoodDishStateController@update');
+$router->get('/fooddishstate/list','FoodDishStateController@list');
+$router->get('/fooddishstate/index/{id}','FoodDishStateController@getFoodDishStateById');
+
+/**
+ * Module CategoryFood
+ */
+$router->post('/categoryfood/create','CategoryFoodController@create');
+$router->get('/categoryfood/delete/{id}','CategoryFoodController@delete');
+$router->post('/categoryfood/update','CategoryFoodController@update');
+$router->get('/categoryfood/list','CategoryFoodController@list');
+$router->get('/categoryfood/index/{id}','CategoryFoodController@getFoodDishStateById');
+
 
 /**
  * Module event

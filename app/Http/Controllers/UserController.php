@@ -22,6 +22,25 @@ class UserController extends Controller
         $this->business = new UserBusiness;
     }
 
+    public function getById($id){
+        return response()->json(['id'=>1,'msg'=>$this->business->getById($id)],200); 
+    }
+
+    public function getAll(){
+        return response()->json(['id'=>1,'msg'=>$this->business->getAll()],200); 
+    }
+
+    public function updateState(Request $request){
+        try{
+            $user = $this->business->getById($request->input('id'));
+            $this->business->updateState($user,$request->input('id_state'));
+            return response()->json(['id'=>1,
+                    'msg'=>'Estado cambiado'],200);
+        }catch(Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
+
     public function create(Request $request){
         try{
             $user = $this->buildUser($request);
