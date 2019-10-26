@@ -52,17 +52,55 @@ class UserController extends Controller
         }
     }
 
+    public function update(Request $request){
+        try{
+            $user = $this->buildUser($request);
+            $this->business->update($user);
+            return response()->json(['id'=>1,'msg'=>'Usuario actualizado'],201);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
+
+    public function updatePassword(Request $request){
+        try{
+            $user = $this->business->getById($request->input('id'));
+            $this->business->updatePassword($user, $request->input('actualPass'),
+                                            $request->input('newPass'));
+            return response()->json(['id'=>1,'msg'=>'Contraseña actualizada'],201);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
+
     public function buildUser(Request $request){
-        $user = new User;
-        $user->id_profile = $request->input('id_profile'); //REQ
-        $user->id_state = $request->input('id_state');
+        $user = null;
+        if($request->input('id') != null){
+            $user = $this->business->getById($request->input('id'));
+            
+        } else {
+            $user = new User;        
+            $user->pass = $request->input('pass'); //REQ
+        } 
+
+        if($request->input('id_profile') != null){
+            $user->id_profile = $request->input('id_profile');
+        }
+        
         $user->full_name = $request->input('full_name'); //REQ
-        $user->image_url = $request->input('image_url');
         $user->mail = $request->input('mail'); //REQ
-        $user->pass = $request->input('pass'); //REQ
         $user->birthday = $request->input('birthday');
-        $user->address = $request->input('address'); 
+        $user->address = $request->input('address');
 
         return $user;
+    }
+
+    public function listProfiles(){
+        try{
+            $profiles = $this->business->listProfiles();
+            return response()->json(['id'=>1,'msg'=>$profiles],200);
+        }catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
     }
 }

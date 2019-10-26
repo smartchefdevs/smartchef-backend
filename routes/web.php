@@ -11,9 +11,9 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', 'PresentationController@presentation');
+
+$router->get('/check', 'UserController@listProfiles');
 
 /**
  * Login Administration route
@@ -34,6 +34,16 @@ $router->post('/auth/login/costumer', 'AuthController@loginCostumer');
  * Register users
  */
 $router->post('/user/create','UserController@create');
+
+/**
+ * Update users
+ */
+$router->post('/user/update','UserController@update');
+
+/**
+ * Update users
+ */
+$router->post('/user/update-password','UserController@updatePassword');
 
 /**
  * Get All users

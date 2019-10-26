@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\User;
+use App\Profile;
 use App\Utils\ValidatorUtil;
 
 class UserBusiness{
@@ -25,9 +26,27 @@ class UserBusiness{
         return $user->create($user->toArray());
     }
 
+    public function update($user){
+        $this->validate($user);
+        return $user->save();
+    }
+
     public function updateState($user,$id_state){
         $user->id_state=$id_state;
         $user->save();
+    }
+
+    public function updatePassword($user,$actualPass,$newPass){
+        if($user->pass != $this->encryptPass($actualPass)){
+            throw new \Exception('Contraseña actual incorrecta');
+        }
+
+        $user->pass = $this->encryptPass($newPass);
+        $user->save();
+    }
+
+    public function listProfiles(){
+        return Profile::all();
     }
 
     public function validate($user){
