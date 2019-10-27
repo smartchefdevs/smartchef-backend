@@ -13,6 +13,50 @@ Esto les descargará todas las dependencias del proyecto y del Framework Laravel
 
 2. No se les olvide muchachos que se requiere como mínimo php 7.1, además de tener el driver `pdo_pgsql` y `pgsql` disponible, ya que la base de datos es PostgreSQL.
 
+3. IMPORTANTE TEMA DE JWT: Hacer dos cambios:
+    - On vendor/laravel/lumen-framework/config/auth.php
+
+```
+...
+	'guards' => [
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users'
+        ],
+    ],
+	...
+	'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model'  => \App\User::class,
+        ],
+    ],
+```
+
+    - On vendor/illuminate/auth/EloquentUserProvider.php on line 133 for password encrypt
+
+```
+    /*CODE ...*/
+
+	public function validateCredentials(UserContract $user, array $credentials){
+		/** Note that 'pass' is the name of password column on DB */
+        $plain = $credentials['pass'];
+		/** because you encrypt pass on AuthController */
+        return $plain;
+        //return $this->hasher->check($plain, $user->getAuthPassword());
+    }
+	
+    /*CODE ...*/
+
+	/*IF YOU NEED TO RETRIVE MODEL WITH RELATIONS, YOU CAN MODIFY THIS*/
+	public function retrieveByCredentials(array $credentials){
+	
+    /*CODE ...*/
+		
+        return $query->with('state')->first();
+	}
+```
+
 3. A programar! Happy hacking!
 
 ---

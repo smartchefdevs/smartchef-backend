@@ -5,6 +5,7 @@ namespace App\Business;
 use App\User;
 use App\Profile;
 use App\Utils\ValidatorUtil;
+use Illuminate\Http\Request;
 
 class UserBusiness{
 
@@ -21,6 +22,10 @@ class UserBusiness{
     }
 
     public function create($user){
+        $mail = $user->mail;
+        if($this->getByMail($mail) != null){
+            throw new \Exception('El usuario ya se encuentra registrado con el correo '.$mail);
+        }
         $this->validate($user);
         $user->pass = $this->encryptPass($user->pass);
         return $user->create($user->toArray());
@@ -49,6 +54,26 @@ class UserBusiness{
         return Profile::all();
     }
 
+    public function buildUser(Request $request){
+        $user = null;
+        if($request->input('id') != null){
+            $user = $this->getById($request->input('id'));
+            
+        } else {
+            $user = new User;        
+            $user->pass = $request->input('pass'); //REQ
+        }
+        
+        $user->full_name = $request->input('full_name'); //REQ
+        $user->mail = $request->input('mail'); //REQ
+        $user->birthday = $request->input('birthday');
+        $user->address = $request->input('address');
+        $user->id_profile = $request->input('id_profile');
+        $user->id_state = $request->input('id_state');
+        
+        return $user;
+    }
+
     public function validate($user){
         if(ValidatorUtil::isBlank($user->id_profile)){
             throw new \Exception('No se especifica perfil');
@@ -66,12 +91,12 @@ class UserBusiness{
             throw new \Exception('Contraseña vacía');
         }
 
-        if(ValidatorUtil::isBlank($user->image_url)){
-            $user->image_url = 'def.png';
+        if(ValidatorUtil::isBlank($user->id_state)){
+            throw new \Exception('Estado del usuario vacío');
         }
 
-        if(ValidatorUtil::isBlank($user->id_state)){
-            $user->id_state = 1;
+        if(ValidatorUtil::isBlank($user->image_url)){
+            $user->image_url = 'def.png';
         }
 
         if(ValidatorUtil::isBlank($user->image_url)){

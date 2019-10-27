@@ -43,7 +43,8 @@ class UserController extends Controller
 
     public function create(Request $request){
         try{
-            $user = $this->buildUser($request);
+            $user = $this->business->buildUser($request);
+            $user->id_state = 1;
             $user = $this->business->create($user);
             return response()->json(['id'=>1,'msg'=>'Usuario creado',
                                 'user'=>$user],201);
@@ -54,7 +55,7 @@ class UserController extends Controller
 
     public function update(Request $request){
         try{
-            $user = $this->buildUser($request);
+            $user = $this->business->buildUser($request);
             $this->business->update($user);
             return response()->json(['id'=>1,'msg'=>'Usuario actualizado'],201);
         }catch(\Exception $e){
@@ -71,28 +72,6 @@ class UserController extends Controller
         }catch(\Exception $e){
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }
-    }
-
-    public function buildUser(Request $request){
-        $user = null;
-        if($request->input('id') != null){
-            $user = $this->business->getById($request->input('id'));
-            
-        } else {
-            $user = new User;        
-            $user->pass = $request->input('pass'); //REQ
-        } 
-
-        if($request->input('id_profile') != null){
-            $user->id_profile = $request->input('id_profile');
-        }
-        
-        $user->full_name = $request->input('full_name'); //REQ
-        $user->mail = $request->input('mail'); //REQ
-        $user->birthday = $request->input('birthday');
-        $user->address = $request->input('address');
-
-        return $user;
     }
 
     public function listProfiles(){

@@ -43,7 +43,7 @@ $router->post('/user/update','UserController@update');
 /**
  * Update users
  */
-$router->post('/user/update-password','UserController@updatePassword');
+$router->post('/user/change/password','UserController@updatePassword');
 
 /**
  * Get All users
