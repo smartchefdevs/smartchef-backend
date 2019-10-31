@@ -59,6 +59,8 @@ Esto les descargará todas las dependencias del proyecto y del Framework Laravel
 
 3. A programar! Happy hacking!
 
+**NOTE** ec2-34-207-127-183.compute-1.amazonaws.com
+
 ---
 
 # Lumen PHP Framework

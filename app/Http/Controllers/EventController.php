@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Bussiness\EventBussiness;
+use App\Business\EventBusiness;
 use App\Event;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class EventController extends Controller
 
     public function __construct()
     {
-        $this->business = new EventBussiness;
+        $this->business = new EventBusiness;
     }
 
     public function create(Request $request){
