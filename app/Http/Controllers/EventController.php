@@ -29,17 +29,17 @@ class EventController extends Controller
     public function update(Request $request){
         try {
             $data = [
-                'id_state' => $request['id_state'],
-                'id_chef' => $request['id_chef'],
-                'image_url' => $request['image_url'],
-                'name' => $request['name'],
-                'description' => ['description'],
-                'price' => $request['price'],
-                'lat_addr' => $request['lat_addr'],
-                'lon_addr' => $request['lon_addr'],
-                'address' => $request['address']
+                'id_state' => $request->input('id_state'),
+                'id_chef' => $request->input('id_chef'),
+                'image_url' => $request->input('image_url'),
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'price' => $request->input('price'),
+                'lat_addr' => $request->input('lat_addr'),
+                'lon_addr' => $request->input('lon_addr'),
+                'address' => $request->input('address')
             ];
-            $event = $this->business->update($request['id'], $data);
+            $event = $this->business->update($request->input('id'), $data);
             return response()->json(['id'=>1,'msg'=>'evento actualizado','event'=>$event],201);
         } catch (\Exception $e) {
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);

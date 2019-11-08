@@ -100,8 +100,8 @@ $router->get('/event/index/{id}','EventController@getEventById');
 /**
  * event state
  */
-$router->post('/evenstate/create','EventStateController@create');
-$router->get('/evenstate/delete/{id}','EventStateController@delete');
-$router->post('/evenstate/update','EventStateController@update');
-$router->get('/evenstate/list','EventStateController@list');
-$router->get('/evenstate/index/{id}','EventStateController@getEventStateById');
+$router->post('/eventstate/create','EventStateController@create');
+$router->get('/eventstate/delete/{id}','EventStateController@delete');
+$router->post('/eventstate/update','EventStateController@update');
+$router->get('/eventstate/list','EventStateController@list');
+$router->get('/eventstate/index/{id}','EventStateController@getEventStateById');

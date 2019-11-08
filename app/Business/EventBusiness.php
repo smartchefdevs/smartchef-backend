@@ -6,8 +6,7 @@ use App\Event;
 use App\Utils\ValidatorUtil;
 use Illuminate\Support\Facades\Log;
 
-class EventBusiness
-{
+class EventBusiness{
     public function getById($id){
         try {
             $event = Event::with('state')->with('chef')->find($id);
@@ -23,7 +22,7 @@ class EventBusiness
     }
 
     public function update($id, $newData){
-        $event = Event::findOrFail($id);
+        $event = $this->getById($id);
         $event->id_state = $newData['id_state'];
         $event->id_chef = $newData['id_chef'];
         $event->image_url = $newData['image_url'];
