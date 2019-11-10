@@ -68,4 +68,16 @@ class UserBusinessTest extends TestCase
         $this->assertNotNull($business->getByMail("prueda@globant.com"));
         $this->assertNull($business->getByMail("prueda@globant.co"));
     }
+
+    /**
+     * Test User get by pofile
+     *
+     * @return void
+     */
+    public function testGetByProfile(){
+        $business = new UserBusiness;
+        $chefs = $business->getByProfile(3)->all();
+        error_log("Chef ".$chefs[0]->full_name);        
+        $this->assertNotNull($chefs);
+    }
 }

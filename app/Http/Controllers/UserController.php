@@ -30,6 +30,10 @@ class UserController extends Controller
         return response()->json(['id'=>1,'msg'=>$this->business->getAll()],200); 
     }
 
+    public function getByProfile($profile){
+        return response()->json(['id'=>1,'msg'=>$this->business->getByProfile($profile)],200); 
+    }
+
     public function updateState(Request $request){
         try{
             $user = $this->business->getById($request->input('id'));

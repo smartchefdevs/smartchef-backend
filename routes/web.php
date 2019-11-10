@@ -56,6 +56,11 @@ $router->get('/user/list','UserController@getAll');
 $router->get('/user/index/{id}','UserController@getById');
 
 /**
+ * Get user by profile
+ */
+$router->get('/user/profile/{profile}','UserController@getByProfile');
+
+/**
  * Update state user by id
  */
 $router->post('/user/change/state','UserController@updateState');

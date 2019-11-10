@@ -42,7 +42,7 @@ class CategoryFoodBusiness{
 
     public function getCategoryFoods(){
         try{
-            return CategoryFood::all();
+            return CategoryFood::orderBy('name','asc')->get();
         }
         catch(\Exception $e){
             throw $e;

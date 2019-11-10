@@ -21,6 +21,11 @@ class UserBusiness{
         return User::where('mail', $mail)->first();
     }
 
+    public function getByProfile($profile){
+        return User::where('id_profile', $profile)->with('state')->with('profile')
+                    ->orderBy('full_name','asc')->get();
+    }
+
     public function create($user){
         $mail = $user->mail;
         if($this->getByMail($mail) != null){

@@ -46,7 +46,7 @@ class FoodDishBusiness{
 
     public function getFoodDishes(){
         try{
-            return FoodDish::all();
+            return FoodDish::with('category')->get();
         }
         catch(\Exception $e){
             throw $e;

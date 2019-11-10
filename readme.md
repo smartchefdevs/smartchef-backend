@@ -1,5 +1,5 @@
 # SmartChef Backend
-Inline-style: 
+Backend: 
 ![alt text](https://i.pinimg.com/originals/44/f0/0d/44f00d6dc54c73e29bcc362c1bd5cd8a.png "SmartChef Backend")
 
 ## RECOMENDACIONES
@@ -60,6 +60,42 @@ Esto les descargará todas las dependencias del proyecto y del Framework Laravel
 3. A programar! Happy hacking!
 
 **NOTE** ec2-34-207-127-183.compute-1.amazonaws.com
+
+---
+
+## Cuidado con las pruebas unitarias!!
+
+Para realizar pruebas unitarias en Lumen, recuerden:
+
+1. Dentro de la carpeta tests crear los correspondientes paquetes y clases.
+
+2. Ejemplo de clase:
+
+```
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
+//Other Classes
+
+class ExampleTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        // Some code
+        $this->assertEquals("1", "1");
+    }
+}
+```
+
+3. Ejecutar prueba desde terminal:
+
+```
+$ vendor/bin/phpunit --verbose tests/example/ExampleTest --filter=testExample
+```
 
 ---
 
