@@ -97,11 +97,7 @@ class UserBusiness{
         }
 
         if(ValidatorUtil::isBlank($user->id_state)){
-            throw new \Exception('Estado del usuario vacío');
-        }
-
-        if(ValidatorUtil::isBlank($user->image_url)){
-            $user->image_url = 'def.png';
+            $user->id_state = 1;
         }
 
         if(ValidatorUtil::isBlank($user->image_url)){
