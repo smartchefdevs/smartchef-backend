@@ -23,7 +23,7 @@ class UserBusiness{
 
     public function getByProfile($profile){
         return User::where('id_profile', $profile)->with('state')->with('profile')
-                    ->orderBy('full_name','asc')->get();
+                    ->with('events')->with('events.dishes')->orderBy('full_name','asc')->get();
     }
 
     public function create($user){

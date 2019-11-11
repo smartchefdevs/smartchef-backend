@@ -99,6 +99,7 @@ $router->get('/categoryfood/index/{id}','CategoryFoodController@getFoodDishState
 $router->post('/event/create','EventController@create');
 $router->get('/event/delete/{id}','EventController@delete');
 $router->post('/event/update','EventController@update');
+$router->post('/event/dish','EventController@addFoodDish');
 $router->get('/event/list','EventController@list');
 $router->get('/event/index/{id}','EventController@getEventById');
 

@@ -24,7 +24,8 @@ class FoodDishController extends Controller
 
     public function create(Request $request){
         try{
-            $foodDish = $this->buildFoodDish($request);
+            $foodDish = $this->business->buildFoodDish($request);
+            $this->business->validate($foodDish);
             $foodDish = $this->business->create($foodDish);
             return response()->json(['id'=>1,'msg'=>'Plato creado','foodDish'=>$foodDish],201);
         }
@@ -78,15 +79,5 @@ class FoodDishController extends Controller
         catch(\Exception $e){
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }
-    }
-
-    public function buildFoodDish(Request $request){
-        $foodDish = new FoodDish;
-        $foodDish->id_category = $request->input('id_category'); //REQ
-        $foodDish->id_state = $request->input('id_state');//REQ
-        $foodDish->image_url = $request->input('image_url'); //REQ
-        $foodDish->name = $request->input('name');//REQ
-        $foodDish->description = $request->input('description'); //REQ
-        return $foodDish;
     }
 }

@@ -57,7 +57,7 @@ class Event extends Model{
      */
     public function chef()
     {
-        return $this->HasOne('App\User','id', 'id_chef');
+        return $this->hasOne('App\User','id', 'id_chef');
     }
 
     /**
@@ -66,6 +66,6 @@ class Event extends Model{
      */
     public function dishes()
     {
-        return $this->belongsToMany('App\FoodDish', 'food_dish_x_event', 'id', 'id_event');
+        return $this->belongsToMany('App\FoodDish', 'food_dish_x_event', 'id_event', 'id_dish');
     }
 }

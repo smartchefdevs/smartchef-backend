@@ -5,6 +5,7 @@ namespace App\Business;
 use App\FoodDish;
 use App\Utils\ValidatorUtil;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class FoodDishBusiness{
 
@@ -53,6 +54,16 @@ class FoodDishBusiness{
         }
     }
 
+    public function buildFoodDish(Request $request){
+        $foodDish = new FoodDish;
+        $foodDish->id_category = $request->input('id_category'); //REQ
+        $foodDish->id_state = $request->input('id_state');//REQ
+        $foodDish->image_url = $request->input('image_url'); //REQ
+        $foodDish->name = $request->input('name');//REQ
+        $foodDish->description = $request->input('description'); //REQ
+        return $foodDish;
+    }
+
     public function validate($foodDish){
         if(ValidatorUtil::isBlank($foodDish->id_category)){
             throw new \Exception('No se especifica la categoría');
@@ -62,16 +73,16 @@ class FoodDishBusiness{
             throw new \Exception('Estado vacío');
         }
 
-        if(ValidatorUtil::isBlank($foodDish->image_url)){
-            throw new \Exception('Correo vacío');
-        }
-
         if(ValidatorUtil::isBlank($foodDish->name)){
             throw new \Exception('Nombre vacío');
         }
 
         if(ValidatorUtil::isBlank($foodDish->description)){
             throw new \Exception('Descripción vacía');
+        }
+
+        if(ValidatorUtil::isBlank($foodDish->image_url)){
+            $foodDish->image_url = 'def.png';
         }
     }
 

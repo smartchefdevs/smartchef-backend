@@ -5,8 +5,10 @@ namespace App\Business;
 use App\Event;
 use App\Utils\ValidatorUtil;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class EventBusiness{
+
     public function getById($id){
         try {
             $event = Event::with('state')->with('chef')->find($id);
@@ -47,10 +49,14 @@ class EventBusiness{
 
     public function getEvent(){
         try {
-            return Event::all();
+            return Event::with('chef')->with('dishes')->get();
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    public function addFoodDish($id,$foodDish){
+        DB::insert('INSERT INTO food_dish_x_event(id_dish, id_event) VALUES(?,?)',[$foodDish->id,$id]);
     }
 
     public function validate($event){

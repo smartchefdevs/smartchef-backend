@@ -95,7 +95,7 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
      */
     public function events()
     {
-        return $this->belongsToMany('App\Event','id_chef', 'id');
+        return $this->HasMany('App\Event','id_chef', 'id');
     }
 
     /**
@@ -105,7 +105,7 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
      */
     public function reservations()
     {
-        return $this->belongsToMany('App\EventReservation','id_costumer', 'id');
+        return $this->HasMany('App\EventReservation','id_costumer', 'id');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\EventBusiness;
+use App\Business\FoodDishBusiness;
 use App\Event;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,10 +11,12 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     private $business;
+    private $businessDish;
 
     public function __construct()
     {
         $this->business = new EventBusiness;
+        $this->businessDish = new FoodDishBusiness;
     }
 
     public function create(Request $request){
@@ -21,6 +24,18 @@ class EventController extends Controller
             $event = $this->buildEvent($request);
             $event = $this->business->create($event);
             return response()->json(['id'=>1,'msg'=>'Evento creado','event'=>$event],201);
+        } catch (\Exception $e) {
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
+
+    public function addFoodDish(Request $request){
+        try {
+            $foodDish = $this->businessDish->buildFoodDish($request);
+            $this->businessDish->validate($foodDish);
+            $foodDish = $this->businessDish->create($foodDish);
+            $this->business->addFoodDish($request->input('id_event'),$foodDish);
+            return response()->json(['id'=>1,'msg'=>'Plato agregado'],201);
         } catch (\Exception $e) {
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }
@@ -75,9 +90,9 @@ class EventController extends Controller
 
     public function buildEvent(Request $request){
         $event = new Event;
-        $event->id_state = $request->input('id_state');//REQ
+        $event->id_state = 1;//REQ
         $event->id_chef = $request->input('id_chef');//REQ
-        $event->image_url = $request->input('image_url'); //REQ
+        $event->image_url = 'def.png'; //REQ
         $event->name = $request->input('name');//REQ
         $event->description = $request->input('description'); //REQ
         $event->price = $request->input('price'); //REQ
