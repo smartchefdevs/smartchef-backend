@@ -11,7 +11,7 @@ class EventBusiness{
 
     public function getById($id){
         try {
-            $event = Event::with('state')->with('chef')->find($id);
+            $event = Event::with('state')->with('chef')->with('dishes')->find($id);
             return $event;
         } catch (\Exception $e) {
             throw $e;
