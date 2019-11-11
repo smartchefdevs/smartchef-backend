@@ -111,3 +111,14 @@ $router->get('/eventstate/delete/{id}','EventStateController@delete');
 $router->post('/eventstate/update','EventStateController@update');
 $router->get('/eventstate/list','EventStateController@list');
 $router->get('/eventstate/index/{id}','EventStateController@getEventStateById');
+
+/**
+ * Califications Categories
+ */
+$router->get('/calificationcategory/list','CalificationCategoryController@getAll');
+
+/**
+ * Califications 
+ */
+$router->post('/calification/create','CalificationController@create');
+$router->get('/calification/chef/{id_chef}','CalificationController@getByChef');
