@@ -28,7 +28,6 @@ class FoodDishBusiness{
         $foodDish = FoodDish::findOrFail($id);
         $foodDish->id_category = $newData['id_category'];
         $foodDish->id_state = $newData['id_state'];
-        $foodDish->image_url = $newData['image_url'];
         $foodDish->name = $newData['name'];
         $foodDish->description = $newData['description'];
         $this->validate($foodDish);

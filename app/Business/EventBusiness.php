@@ -23,18 +23,7 @@ class EventBusiness{
         return $event->create($event->toArray());
     }
 
-    public function update($id, $newData){
-        $event = $this->getById($id);
-        $event->id_state = $newData['id_state'];
-        $event->id_chef = $newData['id_chef'];
-        $event->image_url = $newData['image_url'];
-        $event->name = $newData['name'];
-        $event->description = $newData['description'];
-        $event->price = $newData['price'];
-        $event->lat_addr = $newData['lat_addr'];
-        $event->lon_addr = $newData['lon_addr'];
-        $event->address = $newData['address'];
-        $this->validate($event);
+    public function update($event){
         $event->save();
         return $event;
     }

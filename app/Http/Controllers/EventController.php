@@ -43,18 +43,9 @@ class EventController extends Controller
 
     public function update(Request $request){
         try {
-            $data = [
-                'id_state' => $request->input('id_state'),
-                'id_chef' => $request->input('id_chef'),
-                'image_url' => $request->input('image_url'),
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
-                'lat_addr' => $request->input('lat_addr'),
-                'lon_addr' => $request->input('lon_addr'),
-                'address' => $request->input('address')
-            ];
-            $event = $this->business->update($request->input('id'), $data);
+            $event = $this->buildEvent($request);
+            $this->business->validate($event);
+            $event = $this->business->update($event);
             return response()->json(['id'=>1,'msg'=>'evento actualizado','event'=>$event],201);
         } catch (\Exception $e) {
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
@@ -89,10 +80,23 @@ class EventController extends Controller
     }
 
     public function buildEvent(Request $request){
-        $event = new Event;
-        $event->id_state = 1;//REQ
-        $event->id_chef = $request->input('id_chef');//REQ
-        $event->image_url = 'def.png'; //REQ
+        $id = $request->input('id');
+        $event = null;
+        
+        if($id != null || $id != ''){
+            $event = $this->business->getById($id);
+        } else {
+            $event = new Event;
+            $event->image_url = 'def.png';
+            $event->id_chef = $request->input('id_chef');
+        }
+        
+        if($request->input('id_state') == null){
+            $event->id_state = 1;
+        } else {
+            $event->id_state = $request->input('id_state');
+        }
+        
         $event->name = $request->input('name');//REQ
         $event->description = $request->input('description'); //REQ
         $event->price = $request->input('price'); //REQ
