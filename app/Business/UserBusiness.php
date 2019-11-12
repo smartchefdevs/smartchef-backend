@@ -14,7 +14,7 @@ class UserBusiness{
     }
 
     public function getById($id){
-        return User::with('state')->with('profile')->find($id);
+        return User::with('state')->with('profile')->with('events')->with('events.dishes')->find($id);
     }
 
     public function getByMail($mail){
