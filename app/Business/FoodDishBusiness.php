@@ -53,6 +53,15 @@ class FoodDishBusiness{
         }
     }
 
+    public function getFoodDishesByCategory($id_category){
+        try{
+            return FoodDish::where('id_category','=',$id_category)->get();
+        }
+        catch(\Exception $e){
+            throw $e;
+        }
+    }
+
     public function buildFoodDish(Request $request){
         $foodDish = new FoodDish;
         $foodDish->id_category = $request->input('id_category'); //REQ

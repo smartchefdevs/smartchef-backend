@@ -80,4 +80,14 @@ class FoodDishController extends Controller
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }
     }
+
+    public function getFoodDishByCategory($id_category){
+        try{
+            $foodDishes = $this->business->getFoodDishesByCategory($id_category);
+            return response()->json(['id'=>1,'data'=>$foodDishes],200);
+        }
+        catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
 }

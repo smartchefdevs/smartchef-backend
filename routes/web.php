@@ -73,6 +73,8 @@ $router->get('/fooddish/delete/{id}','FoodDishController@delete');
 $router->post('/fooddish/update','FoodDishController@update');
 $router->get('/fooddish/list','FoodDishController@list');
 $router->get('/fooddish/index/{id}','FoodDishController@getFoodDishById');
+$router->get('/fooddish/category/{id_category}','FoodDishController@getFoodDishByCategory');
+
 
 /**
  * Module FoodDishState
