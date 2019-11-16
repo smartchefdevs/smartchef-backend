@@ -62,6 +62,6 @@ class FoodDish extends Model{
      */
     public function events()
     {
-        return $this->belongsToMany('App\Event', 'food_dish_x_event', 'id', 'id_event');
+        return $this->belongsToMany('App\Event', 'food_dish_x_event', 'id_dish', 'id_event');
     }
 }

@@ -55,7 +55,7 @@ class FoodDishBusiness{
 
     public function getFoodDishesByCategory($id_category){
         try{
-            return FoodDish::where('id_category','=',$id_category)->get();
+            return FoodDish::where('id_category','=',$id_category)->with('category')->with('events')->get();
         }
         catch(\Exception $e){
             throw $e;

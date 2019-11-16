@@ -124,3 +124,11 @@ $router->get('/calificationcategory/list','CalificationCategoryController@getAll
  */
 $router->post('/calification/create','CalificationController@create');
 $router->get('/calification/chef/{id_chef}','CalificationController@getByChef');
+
+/**
+ * Califications 
+ */
+$router->post('/reservation/create','ReservationController@create');
+$router->get('/reservation/index/{id}','ReservationController@getById');
+$router->get('/reservation/costumer/{id_costumer}','ReservationController@getByCostumer');
+$router->get('/reservation/chef/{id_chef}','ReservationController@getByChef');
