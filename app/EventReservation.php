@@ -62,6 +62,6 @@ class EventReservation extends Model{
      */
     public function costumer()
     {
-        return $this->HasOne('App\User','id_costumer', 'id');
+        return $this->HasOne('App\User','id', 'id_costumer');
     }
 }
