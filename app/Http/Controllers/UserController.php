@@ -40,7 +40,7 @@ class UserController extends Controller
             $this->business->updateState($user,$request->input('id_state'));
             return response()->json(['id'=>1,
                     'msg'=>'Estado cambiado'],200);
-        }catch(Exception $e){
+        }catch(\Exception $e){
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }
     }
