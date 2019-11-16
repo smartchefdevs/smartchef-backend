@@ -126,9 +126,17 @@ $router->post('/calification/create','CalificationController@create');
 $router->get('/calification/chef/{id_chef}','CalificationController@getByChef');
 
 /**
- * Califications 
+ * Reservation 
  */
 $router->post('/reservation/create','ReservationController@create');
 $router->get('/reservation/index/{id}','ReservationController@getById');
 $router->get('/reservation/costumer/{id_costumer}','ReservationController@getByCostumer');
 $router->get('/reservation/chef/{id_chef}','ReservationController@getByChef');
+
+/**
+ * Reports 
+ */
+$router->get('/report/users-profile','ReportController@userPerProfileCount');
+$router->get('/report/user/{id_profile}/{id_state}','ReportController@userPerProfilePerStateCount');
+$router->get('/report/events/list','ReportController@eventsCount');
+$router->get('/report/events/chef','ReportController@eventsPerChefCount');
