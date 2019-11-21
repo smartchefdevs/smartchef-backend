@@ -70,6 +70,15 @@ class EventController extends Controller
         }
     }
 
+    public function getEventByChef($id_chef){
+        try {
+            $event = $this->business->getByChef($id_chef);
+            return response()->json(['id'=>1,'data'=>$event],200);
+        } catch (\Exception $e) {
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }
+    }
+
     public function list(Request $request){
         try {
             $event = $this->business->getEvent();

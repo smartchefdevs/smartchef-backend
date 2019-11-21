@@ -33,10 +33,28 @@ class ReservationController extends Controller
         }       
     }
 
+    public function getByCostumerByState($id_state,$id_costumer){
+        try{
+            return response()->json(['id'=>1,
+                                'data'=>$this->business->getByCostumerByState($id_state,$id_costumer)],200);
+        } catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }       
+    }
+
     public function getByChef($id_chef){
         try{
             return response()->json(['id'=>1,
                                 'data'=>$this->business->getByChef($id_chef)],200);
+        } catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }     
+    }
+
+    public function getByChefByState($id_state,$id_chef){
+        try{
+            return response()->json(['id'=>1,
+                                'data'=>$this->business->getByChefByState($id_state,$id_chef)],200);
         } catch(\Exception $e){
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }     
@@ -48,6 +66,16 @@ class ReservationController extends Controller
             $this->business->validate($reservation);
             $reservation = $this->business->create($reservation);
             return response()->json(['id'=>1,'msg'=>'Reserva realizada con éxito'],201);
+        } catch(\Exception $e){
+            return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
+        }       
+    }
+
+    public function changeState(Request $request){
+        try{
+            $reservation = $this->business->getById($request->input('id'));
+            $this->business->changeState($reservation,$request->input('id_state'));
+            return response()->json(['id'=>1,'msg'=>'Reserva actualizada con éxito'],201);
         } catch(\Exception $e){
             return response()->json(['id'=>-1,'msg'=>$e->getMessage()],500);
         }       

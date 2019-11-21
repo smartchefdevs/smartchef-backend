@@ -104,6 +104,7 @@ $router->post('/event/update','EventController@update');
 $router->post('/event/dish','EventController@addFoodDish');
 $router->get('/event/list','EventController@list');
 $router->get('/event/index/{id}','EventController@getEventById');
+$router->get('/event/chef/{id_chef}','EventController@getEventByChef');
 
 /**
  * event state
@@ -132,6 +133,9 @@ $router->post('/reservation/create','ReservationController@create');
 $router->get('/reservation/index/{id}','ReservationController@getById');
 $router->get('/reservation/costumer/{id_costumer}','ReservationController@getByCostumer');
 $router->get('/reservation/chef/{id_chef}','ReservationController@getByChef');
+$router->get('/reservation/state/costumer/{id_state}/{id_costumer}','ReservationController@getByCostumerByState');
+$router->get('/reservation/state/chef/{id_state}/{id_chef}','ReservationController@getByChefByState');
+$router->post('/reservation/state','ReservationController@changeState');
 
 /**
  * Reports 

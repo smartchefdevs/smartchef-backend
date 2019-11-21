@@ -18,8 +18,20 @@ class ReservationBusiness{
                                 ->with('state')->with('costumer')->orderBy('date_reservation','asc')->get();
     }
 
+    public function getByCostumerByState($id_state,$id_costumer){
+        return EventReservation::where('id_state',$id_state)->where('id_costumer',$id_costumer)->with('event')
+                                ->with('state')->with('costumer')->orderBy('date_reservation','asc')->get();
+    }
+
     public function getByChef($id_chef){
         return EventReservation::whereHas('event', function($query) use ($id_chef){
+                                    $query->where('event.id_chef', $id_chef);
+                                })->with('event')
+                                ->with('state')->with('costumer')->orderBy('date_reservation','asc')->get();
+    }
+
+    public function getByChefByState($id_state,$id_chef){
+        return EventReservation::where('id_state',$id_state)->whereHas('event', function($query) use ($id_chef){
                                     $query->where('event.id_chef', $id_chef);
                                 })->with('event')
                                 ->with('state')->with('costumer')->orderBy('date_reservation','asc')->get();
@@ -28,6 +40,11 @@ class ReservationBusiness{
     public function create($reservation){
         $reservation->id_state = 1;
         return $reservation->create($reservation->toArray());
+    }
+
+    public function changeState($reservation,$id_state){
+        $reservation->id_state = $id_state;
+        return $reservation->save();
     }
 
     public function buildReservation(Request $request){

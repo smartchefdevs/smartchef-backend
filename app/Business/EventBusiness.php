@@ -18,6 +18,16 @@ class EventBusiness{
         }
     }
 
+    public function getByChef($id_chef){
+        try {
+            $event = Event::where('id_chef',$id_chef)->with('state')
+                        ->with('dishes')->get();
+            return $event;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function create($event){
         $this->validate($event);
         return $event->create($event->toArray());
